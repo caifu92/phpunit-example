@@ -1,8 +1,18 @@
-image: php:5.6
+image: php
 
 stages:
   - test
 
+before_script:
+- apt-get update -yqq
+- apt-get install git -yqq
+
+# Install composer
+- curl -sS https://getcomposer.org/installer | php
+
+# Install all project dependencies
+- php composer.phar install
+
 test:
   script:
-    ./vendor/bin/phpunit
+  - vendor/bin/phpunit 
